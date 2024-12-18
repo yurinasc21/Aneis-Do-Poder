@@ -1,6 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using ForjandoAneis.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<AneisPoderososContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Conexao")));
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
