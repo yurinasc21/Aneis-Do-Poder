@@ -48,7 +48,7 @@ namespace backend.Controllers
                 return NotFound();
 
             if (!ValidarAnel(anel))
-                return BadRequest("Limite de anéis para este portador foi excedido.");
+                return BadRequest($"Limite de anéis para o portador {anel.Portador} foi excedido.");
 
             anelBanco.Nome = anel.Nome;
             anelBanco.Poder = anel.Poder;

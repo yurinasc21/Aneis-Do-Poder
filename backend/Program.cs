@@ -1,11 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using ForjandoAneis.Context;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<AneisPoderososContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Conexao")));
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
+});
 
 
 builder.Services.AddControllers();
@@ -25,6 +34,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors("AllowAll");
 
 app.MapControllers();
 
